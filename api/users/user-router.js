@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
-const { checkUsernameExists, validReqBody } = require("./user-middleware");
+const { checkUsernameExists, validReqBody, checkPasswordValid,checkUsernameValid } = require("./user-middleware");
 const User = require("./user-model");
 
 router.post("/register", validReqBody, checkUsernameExists,  (req, res, next) => {
@@ -16,9 +16,7 @@ router.post("/register", validReqBody, checkUsernameExists,  (req, res, next) =>
     });
 });
 
-// router.post(
-//   "/login",
-//   (req, res, next) => {} // eslint-disable-line
-// );
+router.post('/login', validReqBody, checkUsernameValid, checkPasswordValid, (req, res) => {
+})
 
 module.exports = router;
