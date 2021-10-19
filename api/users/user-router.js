@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
-const { checkUsernameExists, validReqBody, checkPasswordValid,checkUsernameValid } = require("./user-middleware");
+const { checkUsernameExists, validReqBody, validLoginBody, checkPasswordValid,checkUsernameValid } = require("./user-middleware");
 const User = require("./user-model");
 
 router.post("/register", validReqBody, checkUsernameExists,  (req, res, next) => {
@@ -16,7 +16,7 @@ router.post("/register", validReqBody, checkUsernameExists,  (req, res, next) =>
     });
 });
 
-router.post('/login', validReqBody, checkUsernameValid, checkPasswordValid, (req, res) => {
+router.post('/login', validLoginBody, checkUsernameValid, checkPasswordValid, (req, res) => {
 })
 
 module.exports = router;

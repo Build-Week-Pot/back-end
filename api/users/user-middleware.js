@@ -32,6 +32,25 @@ const validReqBody = (req, res, next) => {
   }
 };
 
+const validLoginBody = (req, res, next)=>{
+  const {username, password} = req.body
+  if(
+  !username ||
+    !username.trim() ||
+    !password ||
+    !password.trim()){
+        next({
+          status: 422,
+          message:
+            "Username and Password Required.",
+        });
+      } else {
+        req.username = username.trim();
+        req.password = password.trim();
+        next();
+      }
+}
+
 const checkUsernameExists = async (req, res, next) => {
   const alreadyUsername = await Users.findBy({ username: req.username });
 
@@ -83,4 +102,5 @@ module.exports = {
   checkUsernameExists,
   checkUsernameValid,
   checkPasswordValid,
+  validLoginBody,
 };
