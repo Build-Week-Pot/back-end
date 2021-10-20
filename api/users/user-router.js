@@ -16,7 +16,8 @@ router.post("/register", validReqBody, checkUsernameExists,  (req, res, next) =>
     });
 });
 
-router.post('/login', validLoginBody, checkUsernameValid, checkPasswordValid, (req, res) => {
+router.post('/login', validLoginBody, checkUsernameValid, checkPasswordValid, (req, res) => {// eslint-disable-line
 })
+
 
 module.exports = router;
