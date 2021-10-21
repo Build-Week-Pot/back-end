@@ -22,4 +22,9 @@ const findByUserId = async (user_id) => {
   return userPotlucks;
 };
 
-module.exports = { add, findBy, findByPotluckId, findByUserId };
+const deletePotluck = async (potluck_id) =>{
+  return await db("potlucks").where("potluck_id",potluck_id).delete()
+  
+}
+
+module.exports = { add, findBy, findByPotluckId, findByUserId, deletePotluck  };
