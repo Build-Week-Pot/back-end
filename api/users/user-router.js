@@ -1,27 +1,43 @@
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
-const { checkUsernameExists, validReqBody, validLoginBody, checkPasswordValid,checkUsernameValid } = require("./user-middleware");
+const {
+  checkUsernameExists,
+  validReqBody,
+  validLoginBody,
+  checkPasswordValid,
+  checkUsernameValid,
+} = require("./user-middleware");
 const User = require("./user-model");
 
-router.post("/register", validReqBody, checkUsernameExists,  (req, res, next) => {
-  const { fullName, email, username, password, role} = req.body;
-  const hash = bcrypt.hashSync(password, 8);
+router.post(
+  "/register",
+  validReqBody,
+  checkUsernameExists,
+  (req, res, next) => {
+    const { fullName, email, username, password, role } = req.body;
+    const hash = bcrypt.hashSync(password, 8);
 
-  User.add({ fullName, email, username ,password: hash, role})
-    .then((newUser) => {
-      res.status(201).json(newUser);
-    })
-    .catch((err) => {
-      next(err);
-    });
+    User.add({ fullName, email, username, password: hash, role })
+      .then((newUser) => {
+        res.status(201).json(newUser);
+      })
+      .catch((err) => {
+        next(err);
+      });
+  }
+);
+
+router.post(
+  "/login",
+  validLoginBody,
+  checkUsernameValid,
+  checkPasswordValid,
+  (req, res) => {// eslint-disable-line
+  }
+);
+
+router.post("/logout", (req, res, next) => {// eslint-disable-line
+  res.json({ status: 201, message: "logout successful when token removed" });
 });
-
-router.post('/login', validLoginBody, checkUsernameValid, checkPasswordValid, (req, res) => {// eslint-disable-line
-})
-
-router.post('/logout', (req, res, next)=>{// eslint-disable-line
-  res.json({status: 201, message: "logout successful when token removed"})
-})
-
 
 module.exports = router;
