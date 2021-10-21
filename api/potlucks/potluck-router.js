@@ -15,4 +15,8 @@ router.post("/:id/createpotluck", validReqBody, (req, res, next) => {
     });
 });
 
+router.get('/:user_id/editpotluck/:potluck_id', (req,res,next)=>{
+  Potluck.
+})
+
 module.exports = router;

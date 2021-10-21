@@ -19,5 +19,9 @@ router.post("/register", validReqBody, checkUsernameExists,  (req, res, next) =>
 router.post('/login', validLoginBody, checkUsernameValid, checkPasswordValid, (req, res) => {// eslint-disable-line
 })
 
+router.post('/logout', (req, res, next)=>{// eslint-disable-line
+  res.json({status: 201, message: "logout successful when token removed"})
+})
+
 
 module.exports = router;
