@@ -2,7 +2,7 @@ const db = require("../data/db-config");
 
 const add = async (newPotluck) => {
 
-  const createdPotluck = await db("potlucks").insert(newPotluck,["potluck_id", "potluckName"])
+  const [createdPotluck] = await db("potlucks").insert(newPotluck,["potluck_id", "potluckName"])
   return createdPotluck
 };
 
