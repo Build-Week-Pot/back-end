@@ -1,3 +1,5 @@
+const Users = require("../users/user-model")
+
 const validReqBody = (req, res, next) => {
     const { potluckName, streetAddress, city, state, zipCode, dayMonthYear, timeOfPotLuck, specialInstructions } = req.body;
   
@@ -37,4 +39,14 @@ const validReqBody = (req, res, next) => {
     }
   };
 
-  module.exports = validReqBody;
+  const checkUserIdValid = async (req, res, next) =>{
+    const validUserId = await Users.findById(req.params.user_id)
+
+    if(!validUserId){
+      next({status: 422, message: "No user exists with this user_id"})
+    } else{
+      next();
+    }
+  }
+
+  module.exports = {validReqBody, checkUserIdValid};
